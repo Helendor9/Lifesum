@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     namespace = "com.lifesum.tracker"
     compileSdk = rootProject.ext.compileSdkVersion
+    ndkVersion "27.2.12479018"
     defaultConfig {
         applicationId "com.lifesum.tracker"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -51,4 +52,10 @@ try {
     }
 } catch(Exception e) {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}
+
+afterEvaluate {
+    tasks.matching { it.name.contains('stripDebugDebugSymbols') }.all {
+        enabled = false
+    }
 }

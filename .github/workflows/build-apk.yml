@@ -35,52 +35,37 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
-      - name: Install Android NDK 27.0.12077973
-        run: |
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "ndk;27.0.12077973"
-
       - name: Build Debug APK with Gradle
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee ../gradle-build.log
+          ./gradlew :app:assembleDebug -x :app:stripDebugDebugSymbols --no-daemon --stacktrace
 
-      - name: Inspect APK outputs
+      - name: Inspect and verify APK output
         run: |
-          echo "=== Searching for APK files ==="
-          find . -name "*.apk"
-          echo "=== Outputs directory ==="
-          ls -laR android/app/build/outputs || true
-
-      - name: Output build log to summary
-        if: always()
-        run: |
-          if [ -f gradle-build.log ]; then
-            echo "### Gradle Build Log (last 60 lines)" >> $GITHUB_STEP_SUMMARY
-            echo '```text' >> $GITHUB_STEP_SUMMARY
-            tail -n 60 gradle-build.log >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "=== Found APK files ==="
+          find . -name "*.apk" -ls
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: lifesum-tracker-debug-apk
           path: |
+            android/app/build/outputs/apk/debug/app-debug.apk
             android/app/build/outputs/apk/**/*.apk
-            **/*.apk
-          if-no-files-found: warn
+          if-no-files-found: error
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         if: success()
         with:
-          tag_name: v1.0.0
-          name: "Lifesum Standalone App v1.0.0"
-          body: "Download the standalone offline APK for Lifesum Tracker."
+          tag_name: v1.0.1
+          name: "Lifesum Standalone App v1.0.1"
+          body: "Direct download of the standalone offline APK for Lifesum Tracker."
           draft: false
           prerelease: false
           files: |
+            android/app/build/outputs/apk/debug/app-debug.apk
             android/app/build/outputs/apk/**/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
