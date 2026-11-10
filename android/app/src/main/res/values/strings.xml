@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Lifesum Tracker</string>
+    <string name="title_activity_main">Lifesum Tracker</string>
+    <string name="package_name">com.lifesum.tracker</string>
+    <string name="custom_url_scheme">com.lifesum.tracker</string>
+</resources>

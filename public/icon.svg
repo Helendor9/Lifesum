@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#dcfce7" />
+    </linearGradient>
+  </defs>
+  <!-- Background rounded squircle -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+  <!-- Calorie tracker ring -->
+  <circle cx="256" cy="256" r="180" stroke="rgba(255,255,255,0.25)" stroke-width="24" fill="none" />
+  <path d="M 256 76 A 180 180 0 1 1 128 382" stroke="#ffffff" stroke-width="24" stroke-linecap="round" fill="none" />
+  <!-- Stylized Lifesum Leaf / Heart center -->
+  <path d="M256 160 C320 200 340 280 256 340 C172 280 192 200 256 160 Z" fill="url(#leafGrad)" />
+  <path d="M256 180 L256 320" stroke="#16a34a" stroke-width="8" stroke-linecap="round" />
+  <path d="M256 240 Q290 220 305 200" stroke="#16a34a" stroke-width="6" stroke-linecap="round" />
+  <path d="M256 270 Q220 250 205 230" stroke="#16a34a" stroke-width="6" stroke-linecap="round" />
+</svg>

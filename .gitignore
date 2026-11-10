@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+android/.gradle
+android/build
+android/app/build
+db/tracker.db

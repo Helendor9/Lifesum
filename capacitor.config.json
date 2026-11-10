@@ -1,0 +1,9 @@
+{
+  "appId": "com.lifesum.tracker",
+  "appName": "Lifesum Tracker",
+  "webDir": "public",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  }
+}

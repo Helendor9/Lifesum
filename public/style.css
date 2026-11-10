@@ -1,0 +1,42 @@
+/* Stile personalizzato Lifesum Clone */
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #f8fafc;
+}
+
+/* Nutriscore badges */
+.badge-nutriscore-A { background-color: #038141; color: white; }
+.badge-nutriscore-B { background-color: #85bb2f; color: white; }
+.badge-nutriscore-C { background-color: #fecb02; color: #1e293b; }
+.badge-nutriscore-D { background-color: #ee8100; color: white; }
+.badge-nutriscore-E { background-color: #e63e11; color: white; }
+
+/* Custom smooth transitions */
+.transition-smooth {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card hover animation */
+.meal-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.meal-card:hover {
+  transform: translateY(-1px);
+}
+
+/* Custom Scrollbar for search results */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
