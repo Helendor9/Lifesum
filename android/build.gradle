@@ -22,11 +22,6 @@ allprojects {
         google()
         mavenCentral()
     }
-    tasks.whenTaskAdded { task ->
-        if (task.name.startsWith("strip")) {
-            task.enabled = false
-        }
-    }
 }
 
 task clean(type: Delete) {

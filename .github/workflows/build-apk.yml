@@ -32,11 +32,25 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
+      - name: Install Android NDK 27.0.12077973
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "ndk;27.0.12077973"
+
       - name: Build Debug APK with Gradle
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug -x stripDebugDebugSymbols --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee ../gradle-build.log
+
+      - name: Output build log to summary on failure
+        if: failure()
+        run: |
+          if [ -f gradle-build.log ]; then
+            echo "### Gradle Build Failure Log" >> $GITHUB_STEP_SUMMARY
+            echo '```text' >> $GITHUB_STEP_SUMMARY
+            tail -n 120 gradle-build.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
