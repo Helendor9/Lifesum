@@ -35,12 +35,6 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
-      - name: Setup matching Android NDK
-        run: |
-          sudo cp -r $ANDROID_HOME/ndk/27.2.12479018 $ANDROID_HOME/ndk/27.0.12077973
-          sudo sed -i 's/27.2.12479018/27.0.12077973/g' $ANDROID_HOME/ndk/27.0.12077973/source.properties
-          cat $ANDROID_HOME/ndk/27.0.12077973/source.properties
-
       - name: Build Debug APK with Gradle
         working-directory: android
         run: |
