@@ -35,11 +35,17 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
+      - name: Setup matching Android NDK
+        run: |
+          sudo cp -r $ANDROID_HOME/ndk/27.2.12479018 $ANDROID_HOME/ndk/27.0.12077973
+          sudo sed -i 's/27.2.12479018/27.0.12077973/g' $ANDROID_HOME/ndk/27.0.12077973/source.properties
+          cat $ANDROID_HOME/ndk/27.0.12077973/source.properties
+
       - name: Build Debug APK with Gradle
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew :app:assembleDebug -x :app:stripDebugDebugSymbols --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Inspect and verify APK output
         run: |
@@ -59,13 +65,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: success()
         with:
-          tag_name: v1.0.1
-          name: "Lifesum Standalone App v1.0.1"
+          tag_name: v1.0.2
+          name: "Lifesum Standalone App v1.0.2"
           body: "Direct download of the standalone offline APK for Lifesum Tracker."
           draft: false
           prerelease: false
           files: |
             android/app/build/outputs/apk/debug/app-debug.apk
-            android/app/build/outputs/apk/**/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
